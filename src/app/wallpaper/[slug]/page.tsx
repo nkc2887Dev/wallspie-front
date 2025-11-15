@@ -97,7 +97,8 @@ export default function WallpaperDetailPage() {
 
     setDownloading(true);
     try {
-      // Use the server's download endpoint that handles CORS and forces download
+      // Use the server's download endpoint that handles CORS and forces downloa
+      console.log("process.env.NEXT_PUBLIC_API_URL handleDownload", process.env.NEXT_PUBLIC_API_URL)
       const downloadUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/downloads/file?wallpaperId=${wallpaper.id}&resolutionId=${selectedResolution.id}`;
 
       // Trigger browser download
