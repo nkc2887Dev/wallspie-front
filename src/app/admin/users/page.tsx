@@ -92,7 +92,7 @@ export default function AdminUsersPage() {
       loadUsers();
     } catch (error: any) {
       console.error('Error deleting user:', error);
-      alert(error.message || 'Failed to delete user');
+      // alert(error.message || 'Failed to delete user');
     }
   };
 
@@ -105,7 +105,7 @@ export default function AdminUsersPage() {
       loadUsers();
     } catch (error: any) {
       console.error('Error updating user status:', error);
-      alert(error.message || 'Failed to update user status');
+      // alert(error.message || 'Failed to update user status');
     }
   };
 
@@ -146,16 +146,16 @@ export default function AdminUsersPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-600 mt-2">Manage team members and registered users</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">User Management</h1>
+          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Manage team members and registered users</p>
         </div>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base w-full sm:w-auto"
           >
             Add User
           </button>
@@ -167,7 +167,7 @@ export default function AdminUsersPage() {
         <div className="flex space-x-2 border-b border-gray-200">
           <button
             onClick={() => setStatusFilter('all')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors whitespace-nowrap ${
               statusFilter === 'all'
                 ? 'border-purple-600 text-purple-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -177,7 +177,7 @@ export default function AdminUsersPage() {
           </button>
           <button
             onClick={() => setStatusFilter('active')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors whitespace-nowrap ${
               statusFilter === 'active'
                 ? 'border-green-600 text-green-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -187,7 +187,7 @@ export default function AdminUsersPage() {
           </button>
           <button
             onClick={() => setStatusFilter('inactive')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors whitespace-nowrap ${
               statusFilter === 'inactive'
                 ? 'border-orange-600 text-orange-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -281,13 +281,13 @@ export default function AdminUsersPage() {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition"
+                className="px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition whitespace-nowrap text-sm sm:text-base"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base"
               >
                 {editingUser ? 'Update User' : 'Create User'}
               </button>
@@ -304,8 +304,82 @@ export default function AdminUsersPage() {
           ))}
         </div>
       ) : filteredUsers.length > 0 ? (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
+        <>
+          {/* Mobile Card View */}
+          <div className="block lg:hidden space-y-4">
+            {filteredUsers.map((user) => (
+              <div key={user.id} className={`bg-white rounded-lg shadow p-4 ${user.is_active === 0 ? 'opacity-60' : ''}`}>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold text-gray-900">{user.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1">{user.email || 'No email'}</p>
+                  </div>
+                  <div className="ml-3">
+                    {getUserTypeBadge(user.user_type, user.is_owner)}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-200">
+                  <div>
+                    <p className="text-xs text-gray-500">Status</p>
+                    <div className="mt-1">
+                      {user.is_active === 1 ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          Active
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                          Inactive
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500">Last Login</p>
+                    <p className="text-xs text-gray-900 mt-1">
+                      {user.last_login
+                        ? new Date(user.last_login).toLocaleDateString()
+                        : 'Never'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  {user.is_owner !== 1 && user.is_active === 1 && user.user_type !== USER_TYPES.GUEST && (
+                    <button
+                      onClick={() => handleEdit(user)}
+                      className="text-xs px-3 py-1.5 rounded-md text-purple-600 hover:bg-purple-50 font-medium whitespace-nowrap"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  {user.is_owner !== 1 && (
+                    <>
+                      {user.is_active === 1 ? (
+                        <button
+                          onClick={() => handleToggleStatus(user.id, user.is_active)}
+                          className="text-xs px-3 py-1.5 rounded-md text-orange-600 hover:bg-orange-50 font-medium whitespace-nowrap"
+                        >
+                          Deactivate
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleToggleStatus(user.id, user.is_active)}
+                          className="text-xs px-3 py-1.5 rounded-md text-green-600 hover:bg-green-50 font-medium whitespace-nowrap"
+                        >
+                          Reactivate
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block bg-white rounded-lg shadow overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -363,7 +437,7 @@ export default function AdminUsersPage() {
                       {user.is_owner !== 1 && user.is_active === 1 && user.user_type !== USER_TYPES.GUEST && (
                         <button
                           onClick={() => handleEdit(user)}
-                          className="text-purple-600 hover:text-purple-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="text-purple-600 hover:text-purple-900 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap font-medium"
                         >
                           Edit
                         </button>
@@ -373,14 +447,14 @@ export default function AdminUsersPage() {
                           {user.is_active === 1 ? (
                             <button
                               onClick={() => handleToggleStatus(user.id, user.is_active)}
-                              className="text-orange-600 hover:text-orange-900"
+                              className="text-orange-600 hover:text-orange-900 whitespace-nowrap font-medium"
                             >
                               Deactivate
                             </button>
                           ) : (
                             <button
                               onClick={() => handleToggleStatus(user.id, user.is_active)}
-                              className="text-green-600 hover:text-green-900"
+                              className="text-green-600 hover:text-green-900 whitespace-nowrap font-medium"
                             >
                               Reactivate
                             </button>
@@ -393,7 +467,8 @@ export default function AdminUsersPage() {
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </>
       ) : (
         <div className="bg-white rounded-lg shadow p-12 text-center">
           <svg

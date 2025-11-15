@@ -99,12 +99,12 @@ export default function Home() {
 
         {/* Featured Wallpapers */}
         {(loading || featuredWallpapers.length > 0) && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Featured Wallpapers</h2>
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
+            <div className="flex items-center justify-between gap-4 mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Featured Wallpapers</h2>
               <Link
                 href="/search?featured=1"
-                className="group relative inline-flex items-center px-6 py-2.5 text-purple-600 hover:text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg"
+                className="group relative inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-2.5 text-purple-600 hover:text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg text-sm sm:text-base whitespace-nowrap flex-shrink-0"
               >
                 <span className="absolute inset-0 w-0 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300 ease-out"></span>
                 <span className="relative flex items-center gap-2">
@@ -125,13 +125,13 @@ export default function Home() {
 
         {/* Trending Wallpapers */}
         {(loading || trendingWallpapers.length > 0) && (
-          <section className="bg-gray-50 py-16">
+          <section className="bg-gray-50 py-8 sm:py-12 md:py-16">
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Trending Now</h2>
+            <div className="flex items-center justify-between gap-4 mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Trending Now</h2>
               <Link
                 href="/search?sort=trending"
-                className="group relative inline-flex items-center px-6 py-2.5 text-purple-600 hover:text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg"
+                className="group relative inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-2.5 text-purple-600 hover:text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg text-sm sm:text-base whitespace-nowrap flex-shrink-0"
               >
                 <span className="absolute inset-0 w-0 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300 ease-out"></span>
                 <span className="relative flex items-center gap-2">
@@ -161,7 +161,7 @@ export default function Home() {
                 className="group relative inline-flex items-center px-6 py-2.5 text-purple-600 hover:text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg"
               >
                 <span className="absolute inset-0 w-0 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300 ease-out"></span>
-                <span className="relative flex items-center gap-2">
+                <span className="relative flex items-center gap-2 whitespace-nowrap">
                   View All
                   <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />

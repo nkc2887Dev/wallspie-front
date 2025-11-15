@@ -125,7 +125,7 @@ export default function UploadWallpaperPage() {
                       setFile(null);
                       setPreview('');
                     }}
-                    className="text-sm text-red-600 hover:text-red-700"
+                    className="text-sm text-red-600 hover:text-red-700 whitespace-nowrap font-medium"
                   >
                     Remove
                   </button>
@@ -154,7 +154,7 @@ export default function UploadWallpaperPage() {
                   />
                   <label
                     htmlFor="file-upload"
-                    className="cursor-pointer inline-block bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
+                    className="cursor-pointer inline-block bg-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-purple-700 transition whitespace-nowrap text-sm sm:text-base font-semibold"
                   >
                     Choose Image
                   </label>
@@ -250,14 +250,14 @@ export default function UploadWallpaperPage() {
             <button
               type="button"
               onClick={() => router.push('/admin/wallpapers')}
-              className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition"
+              className="px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition whitespace-nowrap text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading || !file}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap text-sm sm:text-base"
             >
               {loading ? 'Uploading...' : 'Upload Wallpaper'}
             </button>

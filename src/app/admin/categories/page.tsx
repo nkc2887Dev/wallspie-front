@@ -66,7 +66,7 @@ export default function AdminCategoriesPage() {
       loadCategories();
     } catch (error) {
       console.error('Error deleting category:', error);
-      alert('Failed to delete category. It may have wallpapers associated with it.');
+      // alert('Failed to delete category. It may have wallpapers associated with it.');
     }
   };
 
@@ -78,16 +78,16 @@ export default function AdminCategoriesPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Categories</h1>
-          <p className="text-gray-600 mt-2">Manage wallpaper categories</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Categories</h1>
+          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Manage wallpaper categories</p>
         </div>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base w-full sm:w-auto"
           >
             Add Category
           </button>
@@ -141,13 +141,13 @@ export default function AdminCategoriesPage() {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition"
+                className="px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition whitespace-nowrap text-sm sm:text-base"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base"
               >
                 {editingCategory ? 'Update Category' : 'Create Category'}
               </button>
@@ -164,8 +164,52 @@ export default function AdminCategoriesPage() {
           ))}
         </div>
       ) : categories.length > 0 ? (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
+        <>
+          {/* Mobile Card View */}
+          <div className="block md:hidden space-y-4">
+            {categories.map((category) => (
+              <div key={category.id} className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold text-gray-900">{category.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                      {category.description || 'No description'}
+                    </p>
+                  </div>
+                  {category.source === 'predefined' ? (
+                    <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 ml-2">
+                      Predefined
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-green-800 ml-2">
+                      Custom
+                    </span>
+                  )}
+                </div>
+                <div className="text-sm text-gray-600 mb-3">
+                  {category.wallpaper_count || 0} wallpapers
+                </div>
+                <div className="flex items-center gap-2 pt-3 border-t border-gray-200">
+                  <button
+                    onClick={() => handleEdit(category)}
+                    className="flex-1 px-3 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-md transition whitespace-nowrap"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(category.id)}
+                    className="flex-1 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition whitespace-nowrap"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden md:block bg-white rounded-lg shadow overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -216,14 +260,14 @@ export default function AdminCategoriesPage() {
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={() => handleEdit(category)}
-                        className="text-purple-600 hover:text-purple-900"
+                        className="text-purple-600 hover:text-purple-900 whitespace-nowrap font-medium"
                       >
                         Edit
                       </button>
                       {category.source !== 'predefined' && (
                         <button
                           onClick={() => handleDelete(category.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="text-red-600 hover:text-red-900 whitespace-nowrap font-medium"
                         >
                           Delete
                         </button>
@@ -234,7 +278,8 @@ export default function AdminCategoriesPage() {
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </>
       ) : (
         <div className="bg-white rounded-lg shadow p-12 text-center">
           <svg

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
-import GoogleAdsense from "@/components/GoogleAdsense";
+// import GoogleAdsense from "@/components/GoogleAdsense";
 import CookieConsent from "@/components/CookieConsent";
 const baseUrl = process.env.FRONT_URL || 'https://wallspie.com'
 
@@ -43,15 +43,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo-icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/32X32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/64x64.png', sizes: '64x64', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/logo-icon.svg', color: '#9333ea' },
+      { url: '/48x48.png', sizes: '48x48', type: 'image/png' },
     ],
   },
   manifest: '/site.webmanifest',
@@ -64,7 +62,7 @@ export const metadata: Metadata = {
     siteName: "WallsPie",
     images: [
       {
-        url: `${baseUrl}/logo.svg`,
+        url: `${baseUrl}/64x64.png`,
         width: 1200,
         height: 630,
         alt: "WallsPie - Free 4K Wallpapers",
@@ -75,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "WallsPie - Free 4K Wallpapers & HD Backgrounds",
     description: "Download free 4K, HD, and mobile wallpapers. Browse thousands of high-quality images.",
-    images: [`${baseUrl}/logo.svg`],
+    images: [`${baseUrl}/64x64.png`],
     creator: "@wallspie",
     site: "@wallspie",
   },
@@ -125,7 +123,7 @@ export default function RootLayout({
       url: baseUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/logo.svg`
+        url: `${baseUrl}/64x64.png`
       }
     }
   };
@@ -135,7 +133,7 @@ export default function RootLayout({
     '@type': 'Organization',
     name: 'WallsPie',
     url: baseUrl,
-    logo: `${baseUrl}/logo.svg`,
+    logo: `${baseUrl}/64x64.png`,
     description: 'Free 4K wallpapers and HD backgrounds for desktop and mobile devices',
     sameAs: [
       'https://twitter.com/wallspie',
@@ -160,6 +158,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
@@ -172,11 +171,25 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
         />
+
+        {/* PWA & Mobile Meta Tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="WallsPie" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="WallsPie" />
+
+        {/* Microsoft Tiles */}
+        <meta name="msapplication-TileColor" content="#9333ea" />
+        <meta name="msapplication-TileImage" content="/64x64.png" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+
+        {/* Preconnect for Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <GoogleAdsense />
+        {/* <GoogleAdsense /> */}
         <AuthProvider>
           {children}
           <CookieConsent />

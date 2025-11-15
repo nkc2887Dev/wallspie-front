@@ -22,14 +22,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
           {/* Brand Section */}
           <div className="md:col-span-5">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center">
               <Image
-                src="/logo-horizontal.svg"
-                alt="WallsPie - Free 4K Wallpapers"
-                width={240}
-                height={80}
-                className="h-16 w-auto"
+                src="/64x64.png"
+                alt="WallsPie"
+                width={64}
+                height={64}
+                className="h-14 w-14"
               />
+              {/* <span className="ml-4 text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                WallsPie
+              </span> */}
             </div>
             <p className="text-gray-400 text-lg leading-relaxed mb-6">
               Discover stunning 4K wallpapers and HD backgrounds. Transform your screens with our curated collection of high-quality images for desktop and mobile.

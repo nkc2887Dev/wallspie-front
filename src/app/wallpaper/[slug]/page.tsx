@@ -183,14 +183,14 @@ export default function WallpaperDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Image */}
             <div className="lg:col-span-2">
-              <div className="relative overflow-hidden rounded-lg bg-gray-200 aspect-video mb-6">
+              <div className="relative overflow-hidden rounded-lg bg-gray-200 aspect-video mb-6 max-h-48 sm:max-h-none">
                 <Image
-                  src={wallpaper.full_url || wallpaper.medium_url || wallpaper.thumbnail_url}
+                  src={wallpaper.medium_url || wallpaper.thumbnail_url}
                   alt={wallpaper.title}
                   fill
                   quality={100}
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 66vw"
                   priority
                 />
               </div>
@@ -260,7 +260,7 @@ export default function WallpaperDetailPage() {
                           setSelectedResolution(desktopResolutions[0]);
                         }
                       }}
-                      className={`flex items-center justify-center px-4 py-3 rounded-lg border-2 font-semibold transition ${
+                      className={`flex items-center justify-center px-4 py-3 rounded-lg border-2 font-semibold transition whitespace-nowrap ${
                         deviceType === 'desktop'
                           ? 'border-purple-600 bg-purple-50 text-purple-700'
                           : 'border-gray-200 text-gray-700 hover:border-purple-300'
@@ -279,7 +279,7 @@ export default function WallpaperDetailPage() {
                           setSelectedResolution(mobileResolutions[0]);
                         }
                       }}
-                      className={`flex items-center justify-center px-4 py-3 rounded-lg border-2 font-semibold transition ${
+                      className={`flex items-center justify-center px-4 py-3 rounded-lg border-2 font-semibold transition whitespace-nowrap ${
                         deviceType === 'mobile'
                           ? 'border-purple-600 bg-purple-50 text-purple-700'
                           : 'border-gray-200 text-gray-700 hover:border-purple-300'
@@ -349,7 +349,7 @@ export default function WallpaperDetailPage() {
                 <button
                   onClick={handleDownload}
                   disabled={downloading || !selectedResolution}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-3"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-3 whitespace-nowrap"
                 >
                   {downloading ? 'Downloading...' : 'Download Wallpaper'}
                 </button>
@@ -358,7 +358,7 @@ export default function WallpaperDetailPage() {
                 {isAuthenticated && (
                   <button
                     onClick={handleFavorite}
-                    className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center ${
+                    className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center whitespace-nowrap ${
                       isFavorited
                         ? 'bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200'
                         : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'

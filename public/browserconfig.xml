@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square70x70logo src="/64x64.png"/>
+      <square150x150logo src="/apple-touch-icon.png"/>
+      <square310x310logo src="/apple-touch-icon.png"/>
+      <wide310x150logo src="/apple-touch-icon.png"/>
+      <TileColor>#9333ea</TileColor>
+    </tile>
+    <badge>
+      <polling-uri src="/notifications/feed1"/>
+      <frequency>30</frequency>
+    </badge>
+    <notification>
+      <polling-uri src="/notifications/feed1"/>
+      <frequency>30</frequency>
+      <cycle>1</cycle>
+    </notification>
+  </msapplication>
+</browserconfig>

@@ -69,7 +69,7 @@ export default function AdminWallpapersPage() {
         </div>
         <Link
           href="/admin/wallpapers/upload"
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base"
         >
           Upload Wallpaper
         </Link>
@@ -83,7 +83,73 @@ export default function AdminWallpapersPage() {
         </div>
       ) : wallpapers.length > 0 ? (
         <>
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          {/* Mobile Card View */}
+          <div className="block lg:hidden space-y-4">
+            {wallpapers.map((wallpaper) => (
+              <div key={wallpaper.id} className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 h-16 w-20 sm:h-20 sm:w-28 relative">
+                    <Image
+                      src={wallpaper.thumbnail_url}
+                      alt={wallpaper.title}
+                      fill
+                      quality={95}
+                      className="rounded object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-medium text-gray-900 truncate">{wallpaper.title}</h3>
+                    <p className="text-xs text-gray-500 truncate">{wallpaper.slug}</p>
+                    <div className="mt-2 flex items-center gap-2">
+                      {wallpaper.is_featured === 1 ? (
+                        <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                          Featured
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                          Regular
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-2 text-xs text-gray-500">
+                      <span>{wallpaper.download_count} downloads</span>
+                      <span className="mx-2">•</span>
+                      <span>{wallpaper.view_count} views</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-200 flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => toggleFeatured(wallpaper.id, wallpaper.is_featured)}
+                    className="text-xs px-2 py-1 rounded text-purple-600 hover:bg-purple-50 font-medium whitespace-nowrap"
+                  >
+                    {wallpaper.is_featured === 1 ? 'Unfeature' : 'Feature'}
+                  </button>
+                  <Link
+                    href={`/admin/wallpaper/${wallpaper.slug}`}
+                    className="text-xs px-2 py-1 rounded text-blue-600 hover:bg-blue-50 font-medium whitespace-nowrap"
+                  >
+                    View
+                  </Link>
+                  <Link
+                    href={`/admin/wallpaper/${wallpaper.slug}?edit=true`}
+                    className="text-xs px-2 py-1 rounded text-green-600 hover:bg-green-50 font-medium whitespace-nowrap"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deleteWallpaper(wallpaper.id)}
+                    className="text-xs px-2 py-1 rounded text-red-600 hover:bg-red-50 font-medium whitespace-nowrap"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block bg-white rounded-lg shadow overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
@@ -140,19 +206,25 @@ export default function AdminWallpapersPage() {
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => toggleFeatured(wallpaper.id, wallpaper.is_featured)}
-                          className="text-purple-600 hover:text-purple-900"
+                          className="text-purple-600 hover:text-purple-900 whitespace-nowrap font-medium"
                         >
                           {wallpaper.is_featured === 1 ? 'Unfeature' : 'Feature'}
                         </button>
                         <Link
-                          href={`/wallpaper/${wallpaper.slug}`}
-                          className="text-blue-600 hover:text-blue-900"
+                          href={`/admin/wallpaper/${wallpaper.slug}`}
+                          className="text-blue-600 hover:text-blue-900 whitespace-nowrap font-medium"
                         >
                           View
                         </Link>
+                        <Link
+                          href={`/admin/wallpaper/${wallpaper.slug}?edit=true`}
+                          className="text-green-600 hover:text-green-900 whitespace-nowrap font-medium"
+                        >
+                          Edit
+                        </Link>
                         <button
                           onClick={() => deleteWallpaper(wallpaper.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="text-red-600 hover:text-red-900 whitespace-nowrap font-medium"
                         >
                           Delete
                         </button>
@@ -169,7 +241,7 @@ export default function AdminWallpapersPage() {
               <button
                 onClick={() => loadWallpapers(page + 1)}
                 disabled={loading}
-                className="bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all disabled:opacity-50"
+                className="bg-gray-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all disabled:opacity-50 whitespace-nowrap text-sm sm:text-base"
               >
                 {loading ? 'Loading...' : 'Load More'}
               </button>
@@ -195,7 +267,7 @@ export default function AdminWallpapersPage() {
           <p className="text-gray-600 mb-6">Get started by uploading your first wallpaper.</p>
           <Link
             href="/admin/wallpapers/upload"
-            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all whitespace-nowrap text-sm sm:text-base"
           >
             Upload Wallpaper
           </Link>
