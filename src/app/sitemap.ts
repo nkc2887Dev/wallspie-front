@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   //
   // Example:
   // try {
-  //   const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+  //   const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/categories`);
   //   const categories = await categoriesRes.json();
   //
   //   const categoryPages = categories.data?.map((cat: any) => ({
@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   //     priority: 0.8,
   //   })) || [];
   //
-  //   const wallpapersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wallpapers?limit=1000`);
+  //   const wallpapersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/wallpapers?limit=1000`);
   //   const wallpapers = await wallpapersRes.json();
   //
   //   const wallpaperPages = wallpapers.data?.map((wp: any) => ({

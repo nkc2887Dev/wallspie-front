@@ -24,7 +24,8 @@ export const SECURITY_CONFIG = {
   allowedApiEndpoints: [
     'http://localhost:5000',
     'http://127.0.0.1:5000',
-    process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', ''),
+    process.env.NEXT_PUBLIC_API_URL,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
   ].filter((endpoint): endpoint is string => typeof endpoint === 'string' && endpoint.length > 0),
 
   // Allowed image CDN domains - NO WILDCARDS
@@ -110,8 +111,8 @@ export function isOriginAllowed(origin: string | null): boolean {
  * @returns CSP header string
  */
 export function getCSPHeader(): string {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
-  const apiDomain = apiUrl.replace('/api/v1', '');
+  const apiDomain = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  const apiUrl = `${apiDomain}/api/v1`;
 
   return `
     default-src 'self';
