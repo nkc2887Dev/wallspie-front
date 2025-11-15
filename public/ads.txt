@@ -1,0 +1,14 @@
+# Google AdSense
+# Replace pub-0000000000000000 with your actual AdSense Publisher ID
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Instructions:
+# 1. Get your Publisher ID from Google AdSense dashboard
+# 2. Replace 'pub-0000000000000000' with your actual ID
+# 3. The format is: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# 4. Keep the f08c47fec0942fa0 certification ID as-is (Google's certification authority ID)
+
+# Additional ad networks can be added below (if you use them)
+# Example:
+# media.net, XXXXXXXXX, DIRECT
+# appnexus.com, XXXX, RESELLER
