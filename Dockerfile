@@ -19,6 +19,16 @@ COPY . .
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Accept build-time arguments for NEXT_PUBLIC_* variables
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_FRONT_URL
+ARG NEXT_PUBLIC_GOOGLE_ADSENSE_ID
+
+# Make them available during build
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_FRONT_URL=$NEXT_PUBLIC_FRONT_URL
+ENV NEXT_PUBLIC_GOOGLE_ADSENSE_ID=$NEXT_PUBLIC_GOOGLE_ADSENSE_ID
+
 # Build Next.js application
 RUN npm run build
 
