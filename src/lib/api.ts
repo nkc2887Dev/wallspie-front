@@ -1,9 +1,7 @@
 // API Client for WallsPie Backend
 
 const apiDomain = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-console.log("apiDomain", apiDomain)
 const API_BASE_URL = `${apiDomain}/api/v1`;
-console.log('API_BASE_URL: ', API_BASE_URL);
 
 interface ApiResponse<T = any> {
   success: boolean;

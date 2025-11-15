@@ -6,7 +6,6 @@
  * - Add specific domains only, no pattern matching
  * - Update this file when adding new trusted domains
  */
-      console.log("process.env.NEXT_PUBLIC_API_URL SECURITY_CONFIG", process.env.NEXT_PUBLIC_API_URL)
 
 export const SECURITY_CONFIG = {
   // Allowed CORS origins - NO WILDCARDS
@@ -105,18 +104,14 @@ export function isOriginAllowed(origin: string | null): boolean {
   if (!origin) return false;
   return SECURITY_CONFIG.allowedOrigins.includes(origin);
 }
-  console.log("allowedOrigins", SECURITY_CONFIG.allowedOrigins)
 
 /**
  * Get Content Security Policy header value
  * @returns CSP header string
  */
 export function getCSPHeader(): string {
-  console.log("process.env.NEXT_PUBLIC_API_URL SECURITY_CONFIG", process.env.NEXT_PUBLIC_API_URL)
   const apiDomain = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-  console.log("apiDomain", apiDomain)
   const apiUrl = `${apiDomain}/api/v1`;
-  console.log("apiUrl", apiUrl)
 
   return `
     default-src 'self';
@@ -124,7 +119,7 @@ export function getCSPHeader(): string {
     style-src ${SECURITY_CONFIG.allowedStyleSources.join(' ')};
     img-src 'self' data: blob: ${[...SECURITY_CONFIG.allowedImageDomains, apiDomain].join(' ')};
     font-src ${SECURITY_CONFIG.allowedFontSources.join(' ')};
-    connect-src 'self' ${[apiUrl, ...SECURITY_CONFIG.allowedApiEndpoints].join(' ')} https://pagead2.googlesyndication.com https://www.google-analytics.com;
+    connect-src 'self' ${[apiUrl, apiUrl.replace(/\/api\/v1$/, ''), ...SECURITY_CONFIG.allowedApiEndpoints].join(' ')} https://pagead2.googlesyndication.com https://www.google-analytics.com;
     frame-src ${SECURITY_CONFIG.allowedFrameSources.join(' ')};
     object-src 'none';
     base-uri 'self';
